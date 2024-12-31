@@ -25,10 +25,19 @@ def generate_pickup_line():
     api_key = get_api_key()
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     headers = {'Content-Type': 'application/json'}
+    prompt_starters = [
+        "Generate a short, funny pickup line.",
+        "Give me a cheesy pickup line.",
+        "Create a witty pickup line.",
+        "Write a hilarious pickup line.",
+        "Come up with a unique pickup line."
+    ]
+    import random
+    prompt = random.choice(prompt_starters)
     data = {
         "contents": [{
             "parts": [{
-                "text": "Generate a short, funny pickup line."
+                "text": prompt
             }]
         }]
     }
