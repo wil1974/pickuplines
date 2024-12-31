@@ -1,6 +1,4 @@
 const pickupLineDisplay = document.getElementById('pickupLine');
-const generateButton = document.getElementById('generateButton');
-
 const pickupLineDescriptionInput = document.getElementById('pickupLineDescription');
 
 async function generatePickupLine() {
@@ -18,12 +16,15 @@ async function generatePickupLine() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        const pickupLine = data.pickupLine;
-        pickupLineDisplay.textContent = pickupLine;
+        const pickupLines = data.pickupLines;
+        pickupLineDisplay.innerHTML = '';
+        pickupLines.forEach(line => {
+            const p = document.createElement('p');
+            p.textContent = line;
+            pickupLineDisplay.appendChild(p);
+        });
     } catch (error) {
         console.error("Failed to fetch pickup line:", error);
         pickupLineDisplay.textContent = "Failed to load pickup line.";
     }
 }
-
-generateButton.addEventListener('click', generatePickupLine);

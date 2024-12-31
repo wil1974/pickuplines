@@ -59,27 +59,47 @@ def generate_pickup_line():
         f"Come up with a unique pickup line referencing {description}."
     ]
     
-    prompt = random.choice(prompt_starters)
-    
-    data = {
-        "contents": [{
-            "parts": [{
-                "text": prompt
-            }]
-        }],
-        "generationConfig": {
-            "temperature": 0.7
+    num_lines = 3
+    pickup_lines = []
+    for _ in range(num_lines):
+        prompt = random.choice(prompt_starters)
+        data = {
+            "contents": [{
+                "parts": [{
+                    "text": prompt
+                }]
+            }],
+            "generationConfig": {
+                "temperature": 0.7
+            }
         }
-    }
+        try:
+            response = requests.post(url, headers=headers, json=data)
+            response.raise_for_status()
+            json_response = response.json()
+            pickup_line = json_response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', "Failed to generate pickup line.")
+            pickup_lines.append(pickup_line)
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            pickup_lines.append("Failed to generate pickup line.")
+    
+    return jsonify({'pickupLines': pickup_lines})
     try:
         response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
         json_response = response.json()
-        pickup_line = json_response.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', "Failed to generate pickup line.")
-        return jsonify({'pickupLine': pickup_line})
+        
+        pickup_lines = []
+        candidates = json_response.get('candidates', [])
+        for candidate in candidates:
+            parts = candidate.get('content', {}).get('parts', [])
+            if parts:
+                pickup_lines.append(parts[0].get('text', "Failed to generate pickup line."))
+        
+        return jsonify({'pickupLines': pickup_lines})
     except requests.exceptions.RequestException as e:
         print(f"Request failed: {e}")
-        return jsonify({'pickupLine': "Failed to generate pickup line."}), 500
+        return jsonify({'pickupLines': ["Failed to generate pickup line."]}) , 500
 
 if __name__ == '__main__':
     app.run(debug=True)

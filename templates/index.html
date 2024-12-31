@@ -9,9 +9,9 @@
 <body>
     <div class="container">
         <h1>Random Pickup Line</h1>
-        <input type="text" id="pickupLineDescription" placeholder="Describe your pickup line...">
+        <input type="text" id="pickupLineDescription" placeholder="Describe your pickup line..." onkeydown="if (event.keyCode == 13) { generatePickupLine(); return false;}">
         <p id="pickupLine">Click the button to generate a pickup line.</p>
-        <button id="generateButton">Generate</button>
+        <button id="generateButton" onclick="generatePickupLine()">Generate</button>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
