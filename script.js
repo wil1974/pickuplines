@@ -16,7 +16,7 @@ async function generatePickupLine() {
                         text: "Generate a short, funny pickup line."
                     }]
                 }]
-            })
+            }),
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
