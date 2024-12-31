@@ -1,22 +1,19 @@
-const pickupLines = [
-    "Are you a parking ticket? Because you've got 'fine' written all over you.",
-    "Do you believe in love at first sight, or should I walk by again?",
-    "Is your name Google? Because you have everything I've been searching for.",
-    "Are you a magician? Because whenever I look at you, everyone else disappears!",
-    "I'm not a photographer, but I can picture us together.",
-    "Do you have a map? I keep getting lost in your eyes.",
-    "If being sexy was a crime, you'd be guilty as charged.",
-    "Are you from Tennessee? Because you're the only ten I see!",
-    "I'm learning about important dates in history. Wanna be one of them?",
-    "Aside from being sexy, what do you do for a living?"
-];
-
 const pickupLineDisplay = document.getElementById('pickupLine');
 const generateButton = document.getElementById('generateButton');
 
-function generatePickupLine() {
-    const randomIndex = Math.floor(Math.random() * pickupLines.length);
-    pickupLineDisplay.textContent = pickupLines[randomIndex];
+async function generatePickupLine() {
+    pickupLineDisplay.textContent = "Loading...";
+    try {
+        const response = await fetch('https://api.example.com/pickup-line'); // Replace with your API endpoint
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        pickupLineDisplay.textContent = data.pickupLine; // Assuming the API returns an object with a 'pickupLine' property
+    } catch (error) {
+        console.error("Failed to fetch pickup line:", error);
+        pickupLineDisplay.textContent = "Failed to load pickup line.";
+    }
 }
 
 generateButton.addEventListener('click', generatePickupLine);
