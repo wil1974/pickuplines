@@ -23,7 +23,8 @@ async function generatePickupLine() {
             p.textContent = line;
             pickupLineDisplay.appendChild(p);
         });
-    } catch (error) {
+    }
+    catch (error) {
         console.error("Failed to fetch pickup line:", error);
         pickupLineDisplay.textContent = "Failed to load pickup line.";
     }
