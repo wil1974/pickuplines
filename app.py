@@ -52,11 +52,11 @@ def generate_pickup_line():
     description = request.get_json().get('description', '')
     
     prompt_starters = [
-        f"Generate a short, funny pickup line about {description}.",
-        f"Give me a cheesy pickup line related to {description}.",
-        f"Create a witty pickup line that includes {description}.",
-        f"Write a hilarious pickup line about {description}.",
-        f"Come up with a unique pickup line referencing {description}."
+        f"Generate a short, funny, and unique pickup line about {description}. Make sure the pickup line is different from the other pickup lines you generate.",
+        f"Give me a cheesy, but unique pickup line related to {description}. Make sure the pickup line is different from the other pickup lines you generate.",
+        f"Create a witty and unique pickup line that includes {description}. Make sure the pickup line is different from the other pickup lines you generate.",
+        f"Write a hilarious and unique pickup line about {description}. Make sure the pickup line is different from the other pickup lines you generate.",
+        f"Come up with a unique pickup line referencing {description}. Make sure the pickup line is different from the other pickup lines you generate."
     ]
     
     num_lines = 3
@@ -84,22 +84,6 @@ def generate_pickup_line():
             pickup_lines.append("Failed to generate pickup line.")
     
     return jsonify({'pickupLines': pickup_lines})
-    try:
-        response = requests.post(url, headers=headers, json=data)
-        response.raise_for_status()
-        json_response = response.json()
-        
-        pickup_lines = []
-        candidates = json_response.get('candidates', [])
-        for candidate in candidates:
-            parts = candidate.get('content', {}).get('parts', [])
-            if parts:
-                pickup_lines.append(parts[0].get('text', "Failed to generate pickup line."))
-        
-        return jsonify({'pickupLines': pickup_lines})
-    except requests.exceptions.RequestException as e:
-        print(f"Request failed: {e}")
-        return jsonify({'pickupLines': ["Failed to generate pickup line."]}) , 500
 
 if __name__ == '__main__':
     app.run(debug=True)
