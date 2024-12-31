@@ -4,11 +4,11 @@ const generateButton = document.getElementById('generateButton');
 async function generatePickupLine() {
     pickupLineDisplay.textContent = "Loading...";
     try {
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', {
+        const apiKey = document.querySelector('meta[name="key"]').getAttribute('content');
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'x-goog-api-key': document.querySelector('meta[name="gemini-api-key"]').getAttribute('content')
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 contents: [{
