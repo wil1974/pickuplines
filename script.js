@@ -11,7 +11,11 @@ async function generatePickupLine() {
                 'x-goog-api-key': document.querySelector('meta[name="gemini-api-key"]').getAttribute('content')
             },
             body: JSON.stringify({
-                prompt: "Generate a short, funny pickup line."
+                contents: [{
+                    parts: [{
+                        text: "Generate a short, funny pickup line."
+                    }]
+                }]
             }),
         });
         if (!response.ok) {
