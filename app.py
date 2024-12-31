@@ -7,6 +7,9 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     api_key = os.environ.get('GEMINI_API_KEY')
+    if not api_key:
+        print("Error: GEMINI_API_KEY environment variable not set.")
+        return "Error: GEMINI_API_KEY environment variable not set.", 500
     return render_template('index.html', api_key=api_key)
 
 @app.route('/generate_pickup_line', methods=['POST'])
