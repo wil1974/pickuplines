@@ -39,7 +39,10 @@ def generate_pickup_line():
             "parts": [{
                 "text": prompt
             }]
-        }]
+        }],
+        "generationConfig": {
+            "temperature": 0.7
+        }
     }
     try:
         response = requests.post(url, headers=headers, json=data)
