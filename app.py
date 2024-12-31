@@ -7,17 +7,22 @@ load_dotenv()
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
+def get_api_key():
     api_key = os.environ.get('GEMINI_API_KEY')
     if not api_key:
-        print("Error: GEMINI_API_KEY environment variable not set.")
+        print("GEMINI_API_KEY not found in system environment, checking .env file")
+    return api_key
+
+@app.route('/')
+def index():
+    api_key = get_api_key()
+    if not api_key:
         return "Error: GEMINI_API_KEY environment variable not set.", 500
     return render_template('index.html', api_key=api_key)
 
 @app.route('/generate_pickup_line', methods=['POST'])
 def generate_pickup_line():
-    api_key = os.environ.get('GEMINI_API_KEY')
+    api_key = get_api_key()
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     headers = {'Content-Type': 'application/json'}
     data = {
