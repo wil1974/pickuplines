@@ -4,25 +4,25 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #141414;
+    background-color: #f8bbd0; /* Pastel Pink */
     margin: 0;
     padding: 20px;
-    color: #fff;
+    color: #333; /* Dark text for contrast */
 }
 
 .container {
     text-align: center;
-    background-color: #222;
+    background-color: #fff; /* White container */
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
     max-width: 600px;
     width: 100%;
 }
 
 h1 {
     margin-bottom: 30px;
-    color: #fff;
+    color: #e65100; /* Pastel Orange */
 }
 
 #pickupLine {
@@ -38,26 +38,26 @@ h1 {
 #pickupLine p {
     margin: 0;
     padding: 10px;
-    border: 1px solid #444;
+    border: 1px solid #f48fb1; /* Light Pink border */
     border-radius: 8px;
-    background-color: #333;
-    color: #fff;
+    background-color: #ffe0b2; /* Pastel Orange background */
+    color: #333;
     text-align: center;
 }
 
 #pickupLine p:nth-child(2) {
-    background-color: #444;
+    background-color: #fce4ec; /* Lighter Pink */
 }
 
 #pickupLine p:nth-child(3) {
-    background-color: #555;
+    background-color: #fff3e0; /* Very Light Orange */
 }
 
 button {
     padding: 12px 25px;
     font-size: 1em;
-    background-color: #6c5ce7;
-    color: white;
+    background-color: #ffab91; /* Pastel Orange button */
+    color: #333;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -66,19 +66,19 @@ button {
 }
 
 button:hover {
-    background-color: #5b4bac;
+    background-color: #ffccbc; /* Lighter Pastel Orange */
 }
 
 input[type="text"] {
     padding: 12px;
     margin: 15px 0;
-    border: 1px solid #444;
+    border: 1px solid #f48fb1; /* Light Pink border */
     border-radius: 10px;
     width: calc(100% - 24px);
     box-sizing: border-box;
     font-size: 1em;
-    color: #fff;
-    background-color: #333;
+    color: #333;
+    background-color: #fff; /* White input background */
 }
 
 @media (max-width: 768px) {
