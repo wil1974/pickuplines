@@ -8,8 +8,7 @@ async function generatePickupLine() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Replace with your actual API key
-                'x-goog-api-key': 'YOUR_API_KEY'
+                'x-goog-api-key': process.env.GEMINI_API_KEY
             },
             body: JSON.stringify({
                 contents: [{
