@@ -20,20 +20,47 @@ def index():
         return "Error: GEMINI_API_KEY environment variable not set.", 500
     return render_template('index.html', api_key=api_key)
 
+from flask import Flask, render_template, jsonify, request
+import os
+import requests
+from dotenv import load_dotenv
+import random
+
+load_dotenv()
+
+app = Flask(__name__)
+
+def get_api_key():
+    api_key = os.environ.get('GEMINI_API_KEY')
+    if not api_key:
+        print("GEMINI_API_KEY not found in system environment, checking .env file")
+    return api_key
+
+@app.route('/')
+def index():
+    api_key = get_api_key()
+    if not api_key:
+        return "Error: GEMINI_API_KEY environment variable not set.", 500
+    return render_template('index.html', api_key=api_key)
+
 @app.route('/generate_pickup_line', methods=['POST'])
 def generate_pickup_line():
     api_key = get_api_key()
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     headers = {'Content-Type': 'application/json'}
+    
+    description = request.get_json().get('description', '')
+    
     prompt_starters = [
-        "Generate a short, funny pickup line.",
-        "Give me a cheesy pickup line.",
-        "Create a witty pickup line.",
-        "Write a hilarious pickup line.",
-        "Come up with a unique pickup line."
+        f"Generate a short, funny pickup line about {description}.",
+        f"Give me a cheesy pickup line related to {description}.",
+        f"Create a witty pickup line that includes {description}.",
+        f"Write a hilarious pickup line about {description}.",
+        f"Come up with a unique pickup line referencing {description}."
     ]
-    import random
+    
     prompt = random.choice(prompt_starters)
+    
     data = {
         "contents": [{
             "parts": [{

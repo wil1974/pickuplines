@@ -1,14 +1,18 @@
 const pickupLineDisplay = document.getElementById('pickupLine');
 const generateButton = document.getElementById('generateButton');
 
+const pickupLineDescriptionInput = document.getElementById('pickupLineDescription');
+
 async function generatePickupLine() {
     pickupLineDisplay.textContent = "Loading...";
+    const description = pickupLineDescriptionInput.value;
     try {
         const response = await fetch('/generate_pickup_line', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            body: JSON.stringify({ description: description })
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
